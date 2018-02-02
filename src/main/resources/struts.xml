@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<package name="demo" extends="struts-default" namespace="/">
+		
+		<action name="test" class="web.TestAction">
+			<result name="success">/WEB-INF/msg.jsp</result>
+		</action>
+		
+		<!-- 通过SessionAware域对象的形式 -->
+		<action name="emp-*" class="sessionEmpAction" method="{1}">
+			<result name="list">/WEB-INF/result.jsp</result>
+			<result name="delete" type="redirect">/emp-findAll</result>
+			<result name="edit">/WEB-INF/edit.jsp</result>
+			<result name="update" type="redirect">/emp-findAll</result>
+			<result name="add" type="redirect">/emp-findAll</result>
+			<result name="error">/WEB-INF/error.jsp</result>
+		</action>
+		
+	</package>
+	
+	<!-- Json 返回数据 -->
+	<package name="json" extends="json-default" namespace="/json">
+	
+		<action name="findAll" class="jsonEmpAction">
+			<result name="success" type="json">
+				<param name="root">jsonResult</param>
+			</result>
+		</action>
+		
+	</package>
+</struts>
